@@ -19,8 +19,14 @@ class AlpineController extends Controller
     {
         \Auth::login(User::find(1));
 
-        $response = new StreamedResponse(function () use ($request) {
-            while (true) {
+        $start = time();
+        $maxExecution = ini_get('max_execution_time');
+        $response = new StreamedResponse(function() use ($request, $start, $maxExecution) {
+            while(true) {
+                if(time() >= $start + $maxExecution) {
+                    exit(200);
+                }
+
                 $public = Notification::query()
                     ->whereNull('user_id')
                     ->whereNull('seen_at')
