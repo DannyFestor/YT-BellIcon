@@ -27,4 +27,10 @@ Route::group(['prefix' => 'polling', 'as' => 'polling.'], function () {
         Route::get('/notifications', [\App\Http\Controllers\Notification\Polling\JsController::class, 'show'])->name('get');
         Route::post('/notifications', [\App\Http\Controllers\Notification\Polling\JsController::class, 'store'])->name('store');
     });
+
+    Route::group(['prefix' => 'alpine', 'as' => 'alpine.'], function () {
+        Route::get('/', [\App\Http\Controllers\Notification\Polling\AlpineController::class, 'index'])->name('index');
+        Route::get('/notifications', [\App\Http\Controllers\Notification\Polling\AlpineController::class, 'show'])->name('show');
+        Route::post('/notifications', [\App\Http\Controllers\Notification\Polling\AlpineController::class, 'store'])->name('store');
+    });
 });
