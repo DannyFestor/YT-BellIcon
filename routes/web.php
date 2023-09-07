@@ -18,3 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['prefix' => 'polling', 'as' => 'polling.'], function () {
+    Route::group(['prefix' => 'js', 'as' => 'js.'], function () {
+        Route::get('/', function () {
+            return view('polling.js');
+        })->name('index');
+
+        Route::get('/notifications', [\App\Http\Controllers\Notification\Polling\JsController::class, 'show'])->name('get');
+        Route::post('/notifications', [\App\Http\Controllers\Notification\Polling\JsController::class, 'store'])->name('store');
+    });
+});
