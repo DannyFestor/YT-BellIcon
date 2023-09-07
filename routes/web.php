@@ -33,4 +33,6 @@ Route::group(['prefix' => 'polling', 'as' => 'polling.'], function () {
         Route::get('/notifications', [\App\Http\Controllers\Notification\Polling\AlpineController::class, 'show'])->name('show');
         Route::post('/notifications', [\App\Http\Controllers\Notification\Polling\AlpineController::class, 'store'])->name('store');
     });
+
+    Route::get('livewire', \App\Livewire\Notification::class)->name('livewire');
 });
