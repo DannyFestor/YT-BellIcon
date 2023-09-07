@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,4 +34,10 @@ Route::group(['prefix' => 'polling', 'as' => 'polling.'], function () {
     });
 
     Route::get('livewire', \App\Livewire\Notification::class)->name('livewire');
+});
+
+Route::group(['prefix'=> 'sse', 'as' => 'sse.'], function () {
+    Route::get('/', [\App\Http\Controllers\Notification\SSE\AlpineController::class, 'index'])->name('alpine.index');
+    Route::get('/notifications', [\App\Http\Controllers\Notification\SSE\AlpineController::class, 'show'])->name('alpine.show');
+    Route::post('/notifications', [\App\Http\Controllers\Notification\SSE\AlpineController::class, 'store'])->name('alpine.store');
 });
