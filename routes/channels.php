@@ -13,6 +13,20 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+//Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+//    return (int) $user->id === (int) $id;
+//});
+
+//Broadcast::channel('notifications.{id}', function ($user, $id) {
+//    logger('connected');
+//    return true;
+////    return $user->id === (int) $userId;
+//});
+Broadcast::channel('notifications', function ($user) {
+    return true;
+});
+Broadcast::channel('notifications.{userId}', function ($user, $userId) {
+    logger('connected');
+    return true;
+//    return $user->id === (int) $userId;
 });

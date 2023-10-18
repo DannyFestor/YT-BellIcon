@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Events\PrivateNotificationEvent;
+use App\Events\PublicNotificationEvent;
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class MakeNotificationCommand extends Command
@@ -21,8 +24,14 @@ class MakeNotificationCommand extends Command
         $num = max((int)$this->argument('num'), 1);
         $isUser = (bool) $this->option('user');
 
-        Notification::factory($num)->create([
+        $notifications = Notification::factory($num)->create([
             'user_id' => $isUser ? 1 : null,
         ]);
+
+        if ($isUser) {
+            PrivateNotificationEvent::dispatch($notifications);
+        } else {
+            PublicNotificationEvent::dispatch($notifications);
+        }
     }
 }

@@ -41,3 +41,8 @@ Route::group(['prefix'=> 'sse', 'as' => 'sse.'], function () {
     Route::get('/notifications', [\App\Http\Controllers\Notification\SSE\AlpineController::class, 'show'])->name('alpine.show');
     Route::post('/notifications', [\App\Http\Controllers\Notification\SSE\AlpineController::class, 'store'])->name('alpine.store');
 });
+
+Route::group(['prefix'=> 'ws', 'as' => 'ws.'], function () {
+    Route::get('/', [\App\Http\Controllers\Notification\WS\AlpineController::class, 'index'])->name('alpine.index');
+    Route::post('/notifications', [\App\Http\Controllers\Notification\WS\AlpineController::class, 'store'])->name('alpine.store');
+});
